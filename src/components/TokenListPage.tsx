@@ -43,6 +43,7 @@ const TokenListPage: React.FC<TokenListPageProps> = ({
   const [collectionStats, setCollectionStats] = useState({
     total: 0,
     totalSeen: 0,
+    totalGenerated: 0,
     byRarity: { Common: 0, Rare: 0, Epic: 0, Legendary: 0 },
   });
 

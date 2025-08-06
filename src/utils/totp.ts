@@ -1,5 +1,5 @@
 import * as CryptoJS from "crypto-js";
-import { addToCollection } from './collection';
+import { addToCollection, incrementTotalGenerated } from './collection';
 
 export interface TOTPEntry {
   id: string;
@@ -120,6 +120,9 @@ export function parseOtpAuthUri(uri: string): TOTPEntry | null {
 
 export function getTOTPCode(entry: TOTPEntry): string {
   const code = generateTOTP(entry.secret, entry.period || 30, entry.digits || 6);
+  
+  // Increment total generated counter
+  incrementTotalGenerated();
   
   // Check if this is a special sequence and add to collection
   if (isSpecialSequence(code)) {

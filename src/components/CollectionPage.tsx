@@ -65,7 +65,7 @@ const CollectionPage: React.FC<CollectionPageProps> = ({ onBack }) => {
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <div className="bg-pixel-surface border-2 border-pixel-text rounded-pixel p-4 shadow-pixel">
             <div className="text-2xl font-pixel font-bold text-pixel-green">{stats.total}</div>
             <div className="text-sm font-pixel text-pixel-muted">UNIQUE FOUND</div>
@@ -73,6 +73,10 @@ const CollectionPage: React.FC<CollectionPageProps> = ({ onBack }) => {
           <div className="bg-pixel-surface border-2 border-pixel-text rounded-pixel p-4 shadow-pixel">
             <div className="text-2xl font-pixel font-bold text-pixel-accent">{stats.totalSeen}</div>
             <div className="text-sm font-pixel text-pixel-muted">TOTAL SEEN</div>
+          </div>
+          <div className="bg-pixel-surface border-2 border-pixel-text rounded-pixel p-4 shadow-pixel">
+            <div className="text-2xl font-pixel font-bold text-pixel-cyan">{stats.totalGenerated}</div>
+            <div className="text-sm font-pixel text-pixel-muted">TOTAL GENERATED</div>
           </div>
           <div className="bg-pixel-surface border-2 border-pixel-text rounded-pixel p-4 shadow-pixel">
             <div className="text-2xl font-pixel font-bold text-pixel-yellow">{stats.byRarity.Legendary}</div>

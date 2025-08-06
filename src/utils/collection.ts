@@ -17,6 +17,7 @@ export interface Achievement {
 
 const COLLECTION_STORAGE_KEY = 'totp-special-sequences';
 const ACHIEVEMENTS_STORAGE_KEY = 'totp-achievements';
+const TOTAL_GENERATED_KEY = 'totp-total-generated';
 
 export const getSpecialSequenceInfo = (code: string): { rarity: CollectedSequence['rarity'], description: string } => {
   const patterns = [
@@ -144,10 +145,12 @@ export const getCollection = (): { [code: string]: CollectedSequence } => {
 export const getCollectionStats = () => {
   const collection = getCollection();
   const sequences = Object.values(collection);
+  const totalGenerated = getTotalGenerated();
   
   const stats = {
     total: sequences.length,
     totalSeen: sequences.reduce((sum, seq) => sum + seq.count, 0),
+    totalGenerated: totalGenerated,
     byRarity: {
       Common: sequences.filter(s => s.rarity === 'Common').length,
       Rare: sequences.filter(s => s.rarity === 'Rare').length,
@@ -388,7 +391,22 @@ const unlockAchievement = (achievementId: string) => {
   }
 };
 
+export const getTotalGenerated = (): number => {
+  try {
+    const stored = localStorage.getItem(TOTAL_GENERATED_KEY);
+    return stored ? parseInt(stored, 10) : 0;
+  } catch {
+    return 0;
+  }
+};
+
+export const incrementTotalGenerated = () => {
+  const current = getTotalGenerated();
+  localStorage.setItem(TOTAL_GENERATED_KEY, (current + 1).toString());
+};
+
 export const clearCollection = () => {
   localStorage.removeItem(COLLECTION_STORAGE_KEY);
   localStorage.removeItem(ACHIEVEMENTS_STORAGE_KEY);
+  localStorage.removeItem(TOTAL_GENERATED_KEY);
 };
